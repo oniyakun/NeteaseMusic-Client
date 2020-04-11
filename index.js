@@ -18,7 +18,7 @@ function createWindow () {
     win.loadFile('index.html')
     
     //开发者工具
-    win.webContents.openDevTools()
+    //win.webContents.openDevTools()
     
     //接收最小化事件
     ipc.on('hide', e => win.minimize())
