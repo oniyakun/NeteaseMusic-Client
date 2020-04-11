@@ -1,7 +1,7 @@
 {
   "name": "neteasemusic",
   "productName": "网易云音乐",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Oniya Nerwork Present",
   "main": "index.js",
   "scripts": {
