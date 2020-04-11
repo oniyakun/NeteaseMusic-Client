@@ -1,4 +1,4 @@
-const {app, BrowserWindow, Menu, Tray, dialog, globalShortcut} = require('electron')
+const {app, BrowserWindow, Menu, Tray, dialog, globalShortcut, shell} = require('electron')
 const ipc = require('electron').ipcMain
 const fs = require("fs")
 const path = require("path")
@@ -20,8 +20,11 @@ function createWindow () {
     //开发者工具
     //win.webContents.openDevTools()
     
-    //接收最小化事件
+    //监听最小化事件
     ipc.on('hide', e => win.minimize())
+
+    //监听Github按钮事件
+    ipc.on('gogithub', e => shell.openExternal("https://github.com/oniyakun/NeteaseMusic-Client"))
 }
   //设置托盘
   let TrayMenu = [
