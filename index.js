@@ -2,6 +2,7 @@ const {app, BrowserWindow, Menu, Tray, dialog, globalShortcut, shell} = require(
 const ipc = require('electron').ipcMain
 const fs = require("fs")
 const path = require("path")
+const client = require('discord-rich-presence')('546571212390662205')
 
 function createWindow () {     
     // 创建浏览器窗口
@@ -22,6 +23,10 @@ function createWindow () {
     
     //监听最小化事件
     ipc.on('hide', e => win.minimize())
+
+    ipc.on('name', (event, arg) => {
+      discord(arg[0], arg[1])
+    })
 
     //监听Github按钮事件
     ipc.on('gogithub', e => shell.openExternal("https://github.com/oniyakun/NeteaseMusic-Client"))
@@ -66,8 +71,7 @@ function createWindow () {
     tray = new Tray(path.join(__dirname, "img/tray.png"))
 
     const contextMenu = Menu.buildFromTemplate(TrayMenu)
-
-    tray.setToolTip("网易云音乐")
+    tray.setToolTip('网易云音乐')
     tray.setContextMenu(contextMenu)
     tray.on('click', function(e){togglewindow()})
   }
@@ -75,7 +79,14 @@ function createWindow () {
   async function togglewindow() {
     win.isVisible() ? win.hide() : win.show()
   }
-   
+
+  function discord(title, artists){
+    client.updatePresence({
+      state: 'By: ' + artists,
+      details: 'Listening: ' + title,
+      largeImageKey: 'neteaselogo_512x512',
+    });
+  }
   //托盘功能
   function changeMenuText() {
     win.on("show", () => {
