@@ -49,12 +49,14 @@ function createWindow () {
         label: "上一首（Ctrl+左方向）",
         click: function () {
           prev()
+          discord_tray()
         }
     },
     {
         label: "下一首（Ctrl+右方向）",
         click: function () {
           next()
+          discord_tray()
         }
     },
     {
@@ -110,6 +112,10 @@ function createWindow () {
 
   function next() {
     win.webContents.send('next')
+  }
+
+  function discord_tray() {
+    win.webContents.send('discord_tray')
   }
   
   //创建窗口
