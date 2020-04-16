@@ -19,7 +19,7 @@ function createWindow () {
     win.loadFile('index.html')
     
     //开发者工具
-    //win.webContents.openDevTools()
+    win.webContents.openDevTools()
     
     //监听最小化事件
     ipc.on('hide', e => win.minimize())
@@ -30,12 +30,14 @@ function createWindow () {
 
     //监听Github按钮事件
     ipc.on('gogithub', e => shell.openExternal("https://github.com/oniyakun/NeteaseMusic-Client"))
+    //监听登录链接按钮事件
+    ipc.on('openLink', e => shell.openExternal("https://music.163.com"))
 }
   //设置托盘
   let TrayMenu = [
     {
         label: "显示/隐藏窗口",
-        click: function () {
+        click: function () {  
             togglewindow()
         }
     },
@@ -82,13 +84,16 @@ function createWindow () {
     win.isVisible() ? win.hide() : win.show()
   }
 
+  //Discord rich Presence
   function discord(title, artists){
     client.updatePresence({
       state: 'By: ' + artists,
       details: 'Listening: ' + title,
       largeImageKey: 'neteaselogo_512x512',
+      largeImageText: 'By Oniyakun',
     });
   }
+
   //托盘功能
   function changeMenuText() {
     win.on("show", () => {
