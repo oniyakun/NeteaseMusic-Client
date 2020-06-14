@@ -25,7 +25,7 @@ function createWindow () {
     ipc.on('hide', e => win.minimize())
 
     ipc.on('name', (event, arg) => {
-      discord(arg[0], arg[1])
+      discord(arg[0], arg[1], arg[2])
     })
 
     //监听Github按钮事件
@@ -85,10 +85,10 @@ function createWindow () {
   }
 
   //Discord rich Presence
-  function discord(title, artists){
+  function discord(title, artists, playlist){
     client.updatePresence({
       state: 'By: ' + artists,
-      details: 'Listening: ' + title,
+      details: 'Listening: ' + title + 'on' + playlist,
       largeImageKey: 'neteaselogo_512x512',
       largeImageText: 'By Oniyakun',
     });
@@ -133,7 +133,4 @@ function createWindow () {
     globalShortcut.register('Control+Left', prev)
     globalShortcut.register('Control+Right', next)
     globalShortcut.register('Control+Space', togglePlaying)
-    //禁止刷新
-    globalShortcut.register("CommandOrControl+R", () => { return undefined })
-    globalShortcut.register("F5", () => { return undefined })
   })
