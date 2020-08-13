@@ -21,6 +21,7 @@
   "dependencies": {
     "discord-rich-presence": "0.0.8",
     "electron-packager": "^14.2.1",
+    "ewc": "0.0.1",
     "fs": "0.0.1-security",
     "path": "^0.12.7",
     "utf8": "^3.0.0"

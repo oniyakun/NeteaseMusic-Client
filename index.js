@@ -3,12 +3,14 @@ const ipc = require('electron').ipcMain
 const fs = require("fs")
 const path = require("path")
 const client = require('discord-rich-presence')('546571212390662205')
+const ewc = require('ewc')
 
 function createWindow () {     
     // 创建浏览器窗口
     win = new BrowserWindow({
       width: 1280,
       height: 800,
+      backgroundColor: '#00000000',
       webPreferences: {
         nodeIntegration: true
       },
@@ -18,22 +20,23 @@ function createWindow () {
     // 加载index.html文件
     win.loadFile('index.html')
     
-    //开发者工具
-    //win.webContents.openDevTools()
-    
-    //监听最小化事件
+    // 开发者工具
+    win.webContents.openDevTools()
+
+    // 监听最小化事件
     ipc.on('hide', e => win.minimize())
 
+    // discord监听
     ipc.on('name', (event, arg) => {
       discord(arg[0], arg[1], arg[2])
     })
 
-    //监听Github按钮事件
+    // 监听Github按钮事件
     ipc.on('gogithub', e => shell.openExternal("https://github.com/oniyakun/NeteaseMusic-Client"))
-    //监听登录链接按钮事件
+    // 监听登录链接按钮事件
     ipc.on('openLink', e => shell.openExternal("https://music.163.com"))
 }
-  //设置托盘
+  // 设置托盘
   let TrayMenu = [
     {
         label: "显示/隐藏窗口",
@@ -84,7 +87,7 @@ function createWindow () {
     win.isVisible() ? win.hide() : win.show()
   }
 
-  //Discord rich Presence
+  // Discord rich Presence
   function discord(title, artists, playlist){
     client.updatePresence({
       state: 'By: ' + artists,
@@ -94,7 +97,7 @@ function createWindow () {
     });
   }
 
-  //托盘功能
+  // 托盘功能
   function changeMenuText() {
     win.on("show", () => {
       TrayMenu[0].label = "隐藏窗口"
@@ -123,13 +126,14 @@ function createWindow () {
     win.webContents.send('discord_tray')
   }
   
-  //创建窗口
+  // 创建窗口
   app.on("ready", () => {
     createWindow()
+    ewc.setAcrylic(win, 0x14800020)
     createTray()
     changeMenuText()
 
-    //创建快捷键
+    // 创建快捷键
     globalShortcut.register('Control+Left', prev)
     globalShortcut.register('Control+Right', next)
     globalShortcut.register('Control+Space', togglePlaying)
