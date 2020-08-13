@@ -14,5 +14,5 @@ npm start
 
 ```
 npm i
-npm dist
+npm run dist
 ```
