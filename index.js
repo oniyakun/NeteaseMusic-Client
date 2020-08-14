@@ -21,7 +21,7 @@ function createWindow () {
     win.loadFile('index.html')
     
     // 开发者工具
-    // win.webContents.openDevTools()
+    win.webContents.openDevTools()
 
     // 监听最小化事件
     ipc.on('hide', e => win.minimize())
@@ -35,6 +35,17 @@ function createWindow () {
     ipc.on('gogithub', e => shell.openExternal("https://github.com/oniyakun/NeteaseMusic-Client"))
     // 监听登录链接按钮事件
     ipc.on('openLink', e => shell.openExternal("https://music.163.com"))
+
+    // 监听拖拽和缩放事件
+    win.on("move", () => {
+      disableAcrylic();
+      enableAcrylic();
+    });
+
+    win.on("resize", () => {
+      disableAcrylic();
+      enableAcrylic();
+    })
 }
   // 设置托盘
   let TrayMenu = [
@@ -125,6 +136,36 @@ function createWindow () {
   function discord_tray() {
     win.webContents.send('discord_tray')
   }
+
+// 防拖拽延迟
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function() {
+    var context = this,
+      args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+
+// 定义关闭和开启毛玻璃的方法
+const disableAcrylic = debounce(
+  () => {
+    ewc.setBlurBehind(win, 0x14800020);
+  },
+  50,
+  true
+);
+
+const enableAcrylic = debounce(() => {
+  ewc.setAcrylic(win, 0x14800020);
+}, 50);;
   
   // 创建窗口
   app.on("ready", () => {
