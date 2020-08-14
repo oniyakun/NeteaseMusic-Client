@@ -21,7 +21,7 @@ function createWindow () {
     win.loadFile('index.html')
     
     // 开发者工具
-    win.webContents.openDevTools()
+    // win.webContents.openDevTools()
 
     // 监听最小化事件
     ipc.on('hide', e => win.minimize())
@@ -44,6 +44,14 @@ function createWindow () {
 
     win.on("resize", () => {
       disableAcrylic();
+      enableAcrylic();
+    })
+
+    win.on("blur", () => {
+      disableAcrylic();
+    })
+
+    win.on("focus", () => {
       enableAcrylic();
     })
 }
