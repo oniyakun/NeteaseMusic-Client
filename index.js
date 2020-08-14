@@ -163,17 +163,17 @@ function debounce(func, wait, immediate) {
 }
 
 // 定义关闭和开启毛玻璃的方法
-const disableAcrylic = debounce(
-  () => {
-    ewc.setBlurBehind(win, 0x14800020);
-  },
-  50,
-  true
-);
+  const disableAcrylic = debounce(
+    () => {
+      ewc.setBlurBehind(win, 0x14800020);
+    },
+    50,
+    true
+  );
 
-const enableAcrylic = debounce(() => {
-  ewc.setAcrylic(win, 0x14800020);
-}, 50);;
+  const enableAcrylic = debounce(() => {
+    ewc.setAcrylic(win, 0x14800020);
+  }, 50);
   
   // 创建窗口
   app.on("ready", () => {
