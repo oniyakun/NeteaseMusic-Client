@@ -28,7 +28,7 @@ function createWindow () {
 
     // discord监听
     ipc.on('name', (event, arg) => {
-      discord(arg[0], arg[1], arg[2])
+      discord(arg[0], arg[1])
     })
 
     // 监听Github按钮事件
@@ -88,10 +88,10 @@ function createWindow () {
   }
 
   // Discord rich Presence
-  function discord(title, artists, playlist){
+  function discord(title, artists){
     client.updatePresence({
       state: 'By: ' + artists,
-      details: 'Listening: ' + title + 'on' + playlist,
+      details: 'Listening: ' + title,
       largeImageKey: 'neteaselogo_512x512',
       largeImageText: 'By Oniyakun',
     });
