@@ -21,7 +21,7 @@ function createWindow () {
     win.loadFile('index.html')
     
     // 开发者工具
-    // win.webContents.openDevTools()
+    win.webContents.openDevTools()
 
     // 监听最小化事件
     ipc.on('hide', e => win.minimize())
@@ -165,7 +165,7 @@ function debounce(func, wait, immediate) {
 // 定义关闭和开启毛玻璃的方法
   const disableAcrylic = debounce(
     () => {
-      ewc.setBlurBehind(win, 0x14800020);
+      ewc.setBlurBehind(win, 0xdd222222);
     },
     50,
     true
