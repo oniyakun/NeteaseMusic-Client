@@ -116,6 +116,72 @@ function createWindow () {
     });
   }
 
+  // 创建任务栏媒体控制按钮
+  let mediaState = 0;
+  function mediaControl() {
+    if (mediaState == 0) {
+      win.setThumbarButtons([
+        {
+          tooltip: '上一首',
+          icon: path.join(__dirname, 'img/previous.png'),
+          click () {
+            prev();
+            discord_tray()
+          }
+        },
+        {
+          tooltip: '暂停',
+          icon: path.join(__dirname, 'img/pause.png'),
+          click () { 
+            mediaState = 1;
+            mediaControl();
+            togglePlaying()
+          }
+        },
+        {
+          tooltip: '下一首',
+          icon: path.join(__dirname, 'img/next.png'),
+          click () {
+            next();
+            discord_tray()
+          }
+        }
+      ])
+    } else {
+      win.setThumbarButtons([
+        {
+          tooltip: '上一首',
+          icon: path.join(__dirname, 'img/previous.png'),
+          click () {
+            mediaState = 0;
+            mediaControl();
+            prev();
+            discord_tray()
+          }
+        },
+        {
+          tooltip: '播放',
+          icon: path.join(__dirname, 'img/play.png'),
+          click () { 
+            mediaState = 0;
+            mediaControl();
+            togglePlaying()
+          }
+        },
+        {
+          tooltip: '下一首',
+          icon: path.join(__dirname, 'img/next.png'),
+          click () {
+            mediaState = 0;
+            mediaControl();
+            next();
+            discord_tray()
+          }
+        }
+      ])
+    }
+  }
+
   // 托盘功能
   function changeMenuText() {
     win.on("show", () => {
@@ -178,6 +244,7 @@ function debounce(func, wait, immediate) {
   // 创建窗口
   app.on("ready", () => {
     createWindow()
+    mediaControl()
     ewc.setAcrylic(win, 0x14800020)
     createTray()
     changeMenuText()
