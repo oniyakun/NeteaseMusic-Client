@@ -3,7 +3,6 @@ const ipc = require('electron').ipcMain
 const fs = require("fs")
 const path = require("path")
 const client = require('discord-rich-presence')('546571212390662205')
-const ewc = require('ewc')
 
 function createWindow () {     
     // 创建浏览器窗口
@@ -165,20 +164,19 @@ function debounce(func, wait, immediate) {
 // 定义关闭和开启毛玻璃的方法
   const disableAcrylic = debounce(
     () => {
-      ewc.setBlurBehind(win, 0x14800020);
+      console.log('cuz of macos, it didint turns on')
     },
     50,
     true
   );
 
   const enableAcrylic = debounce(() => {
-    ewc.setAcrylic(win, 0x14800020);
+    
   }, 50);
   
   // 创建窗口
   app.on("ready", () => {
     createWindow()
-    ewc.setAcrylic(win, 0x14800020)
     createTray()
     changeMenuText()
 
