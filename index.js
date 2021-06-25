@@ -33,8 +33,6 @@ function createWindow () {
 
     // 监听Github按钮事件
     ipc.on('gogithub', e => shell.openExternal("https://github.com/oniyakun/NeteaseMusic-Client"))
-    // 监听登录链接按钮事件
-    ipc.on('openLink', e => shell.openExternal("https://music.163.com"))
 
     // 监听拖拽和缩放事件
     win.on("move", () => {
