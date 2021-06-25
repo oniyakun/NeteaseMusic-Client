@@ -17,3 +17,8 @@ npm start
 npm i
 npm run dist
 ```
+
+### TODO
+
+- [x] 每日推荐
+- [x] 私人FM
