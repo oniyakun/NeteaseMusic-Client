@@ -15,12 +15,12 @@
   "author": "Oniya Nerwork Present",
   "license": "ISC",
   "devDependencies": {
-    "electron-builder": "^22.4.1",
-    "electron": "^9.4.0"
+    "electron-builder": "^24.9.1",
+    "electron": "^28.0.0"
   },
   "dependencies": {
     "discord-rich-presence": "0.0.8",
-    "electron-packager": "^14.2.1",
+    "electron-packager": "^17.1.2",
     "ewc": "0.0.1",
     "fs": "0.0.1-security",
     "path": "^0.12.7",
