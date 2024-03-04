@@ -15,7 +15,7 @@
   "author": "Oniya Nerwork Present",
   "license": "ISC",
   "devDependencies": {
-    "electron-builder": "^22.4.1",
+    "electron-builder": "^24.13.3",
     "electron": "^9.4.0"
   },
   "dependencies": {
